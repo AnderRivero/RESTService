@@ -15,6 +15,6 @@ app.use(require('./routes/usuario.js'));
 mongoose.connect(process.env.URLDB, (err, res) => {
     if (err) throw err;
 
-    console.log('Base de datos Online');
+    console.log('Base de datos Online', process.env.URLDB);
 });
 app.listen(process.env.PORT, () => console.log('Escuchando puerto', process.env.PORT));
