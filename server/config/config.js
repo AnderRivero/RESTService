@@ -12,5 +12,6 @@ if (process.env.NODE_ENV === 'dev') {
 } else {
     urlDB = 'mongodb+srv://cafe-user:Undertaker77@cafe-ykqjg.mongodb.net/test?retryWrites=true&w=majority';
 }
-
+console.log('AQUI AMIGO', process.env.NODE_ENV);
+console.log('AQUI AMIGO', urlDB);
 process.env.URLDB = urlDB;
