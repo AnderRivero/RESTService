@@ -14,7 +14,7 @@ app.get('/usuario', verificaToken, (req, res) => {
 
     Usuario.find(filter).skip(i).limit(li).exec((err, usuarios) => {
         if (err) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 err
             });
@@ -31,7 +31,7 @@ app.get('/usuario', verificaToken, (req, res) => {
 });
 
 // Crear
-app.post('/usuario', [verificaToken , verificaAdminRole], (req, res) => {
+app.post('/usuario', [verificaToken, verificaAdminRole], (req, res) => {
     let body = req.body;
     let usuario = new Usuario({
         nombre: body.nombre,
@@ -43,7 +43,7 @@ app.post('/usuario', [verificaToken , verificaAdminRole], (req, res) => {
     usuario.save((err, usuarioDB) => {
 
         if (err) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 err
             });
@@ -57,14 +57,14 @@ app.post('/usuario', [verificaToken , verificaAdminRole], (req, res) => {
 });
 
 //Actualizar
-app.put('/usuario/:id', [verificaToken , verificaAdminRole], (req, res) => {
+app.put('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'status']);
 
     Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true }, (err, usuarioDB) => {
 
         if (err) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 err
             });
@@ -82,19 +82,19 @@ app.put('/usuario/:id', [verificaToken , verificaAdminRole], (req, res) => {
 
 
 
-app.delete('/usuario/:id', [verificaToken , verificaAdminRole], (req, res) => {
+app.delete('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
     let id = req.params.id;
 
     Usuario.findByIdAndUpdate(id, { status: false }, { new: true }, (err, usuarioDB) => {
 
         if (err) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 err
             });
         }
         if (!usuarioDB) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 err: { message: 'Usuario no encontrado' }
             });
@@ -113,14 +113,14 @@ app.delete('/usuario/:id', [verificaToken , verificaAdminRole], (req, res) => {
 
     Usuario.findByIdAndRemove(id, (err, usuarioDelete) => {
         if (err) {
-            res.status(400).json({
+           return res.status(400).json({
                 ok: false,
                 err
             });
         }
 
         if (!usuarioDelete) {
-            res.status(400).json({
+           return res.status(400).json({
                 ok: false,
                 err: { message: 'Usuario no encontrado' }
             });

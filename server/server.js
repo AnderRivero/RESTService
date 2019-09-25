@@ -12,14 +12,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Configuracion global de rutas.
-app.use(require('./routes/index'));
+app.use(require('./routes/index.js'));
 
 //habilitar carpeta public
-app.use(express.static(path.resolve(__dirname , '../public')));
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 mongoose.connect(process.env.URLDB, (err, res) => {
     if (err) throw err;
 
-    console.log('Base de datos Online', process.env.URLDB);
+    console.log('Base de datos Online');
 });
-app.listen(process.env.PORT, () => console.log('Escuchando puerto', process.env.PORT));
+app.listen(process.env.PORT, () => console.log('Escuchando puerto'));
