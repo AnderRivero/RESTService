@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="23374131045-t73br17r33acn7c5msfm7dmn933sfpv5.apps.googleusercontent.com">
     <title>Google Sign In Demo</title>
 </head>
+
 <body>
+    <!--  <img src="http://localhost:3000/imagen/usuarios/5d88e12e413f290570138fc0-35.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiOiJBRE1JTl9ST0xFIiwic3RhdHVzIjp0cnVlLCJnb29nbGUiOmZhbHNlLCJfaWQiOiI1ZDhhN2NmZGM3ZTNiMzE5M2M1NTJlNjQiLCJub21icmUiOiJSb2JlcnRvIiwiZW1haWwiOiJyc3Vtb3phQGludGVsaXguYml6IiwiX192IjowfSwiaWF0IjoxNTY5NDQ3MjAzLCJleHAiOjE1Njk2MjAwMDN9.yzA1Bah__ZBEDhiZgIfKQMhI9WGpl8XdVPbxG5MWUtQ" alt="">-->
+
+
+
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
 
     <script>
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
-        var  id_token = googleUser.getAuthResponse().id_token;
-        console.log('Token de google',id_token);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/google');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-            console.log('Signed in as: ' + xhr.responseText);
-        };
-        xhr.send('idtoken=' + id_token);
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log('Token de google', id_token);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/google');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                console.log('Signed in as: ' + xhr.responseText);
+            };
+            xhr.send('idtoken=' + id_token);
 
-    }
+        }
     </script>
 
-<a href="#" onclick="signOut();">Sign out</a>
-<script>
-  function signOut() {
-     var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
-  }
-</script>
+    <a href="#" onclick="signOut();">Sign out</a>
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function() {
+                console.log('User signed out.');
+            });
+        }
+    </script>
 </body>
+
 </html>
